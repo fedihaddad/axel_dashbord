@@ -1,0 +1,22 @@
+# GUI Framework (Windows compatible)
+PyQt6>=6.0.0
+PyOpenGL>=3.1.0
+
+# Data Processing & Visualization
+numpy>=1.20.0
+matplotlib>=3.5.0
+
+# Utilities
+PyYAML>=5.4.0
+pydantic>=2.0.0
+python-dateutil>=2.8.0
+
+# Testing & Development
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=22.0.0
+pylint>=2.15.0
+
+# NOTE: ROS 2 packages (rclpy, geometry-msgs, etc.) are Linux-only
+# They will be installed separately on Linux/Ubuntu
+# Application works in simulation mode on Windows without ROS 2

@@ -1,0 +1,2 @@
+[console_scripts]
+axel-gui = axel_gui.main_window:main

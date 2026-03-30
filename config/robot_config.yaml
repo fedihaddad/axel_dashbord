@@ -1,0 +1,310 @@
+# AXEL Robot Configuration
+# AXEL is a copy/clone of InMoov 2 with full humanoid structure
+# Based on open-source InMoov design by Gael Langevin (inmoov.fr)
+# - 20 joints (2 head + 2x9 arm/hand joints)
+# - 2 full arms with shoulder, elbow, wrist, hand
+# - 5 fingers per hand (thumb, index, middle, ring, pinky)
+
+# Connection Configuration (Desktop Application)
+connection:
+  type: "both"  # "ethernet", "wifi", or "both"
+  default_connection: "ethernet"  # Preferred connection method
+  
+  ethernet:
+    enabled: true
+    ip_address: "192.168.1.100"
+    port: 5005
+    timeout: 5  # seconds
+  
+  wifi:
+    enabled: true
+    ssid: "AXEL_ROBOT"
+    ip_address: "192.168.1.200"
+    port: 5005
+    timeout: 5  # seconds
+
+# Power Configuration
+power:
+  battery_enabled: false  # Robot is always on secteur power (AC powered)
+  has_battery_display: false
+  cpu_temp_monitoring: true
+  power_draw: "30A at 6V"
+
+# Robot configuration
+robot:
+  name: "AXEL"
+  type: "Humanoid"
+  version: "2_clone"
+  description: "Full humanoid robot (InMoov 2 clone) with 2 arms, 5 fingers per hand, head"
+  dimensions:
+    height_cm: 170  # Life-size
+    arm_span_cm: 150
+    weight_kg: 15
+  
+  joints:
+    # ============================================
+    # HEAD SECTION (2 DOF)
+    # ============================================
+    - name: "head_pan"
+      type: "revolute"
+      min_position: -1.57      # -90 degrees
+      max_position: 1.57       # +90 degrees
+      max_velocity: 1.0
+      max_effort: 5.0
+      servo: "HS805BB"
+    
+    - name: "head_tilt"
+      type: "revolute"
+      min_position: -0.785     # -45 degrees
+      max_position: 0.785      # +45 degrees
+      max_velocity: 1.0
+      max_effort: 5.0
+      servo: "HS805BB"
+    
+    # ============================================
+    # RIGHT ARM SECTION (9 DOF)
+    # ============================================
+    # Shoulder
+    - name: "r_shoulder_pan"
+      type: "revolute"
+      min_position: -1.57
+      max_position: 1.57
+      max_velocity: 0.8
+      max_effort: 10.0
+      servo: "MG996R"
+    
+    - name: "r_shoulder_lift"
+      type: "revolute"
+      min_position: -0.785     # Limited lift
+      max_position: 2.356      # ~135 degrees
+      max_velocity: 0.8
+      max_effort: 10.0
+      servo: "MG996R"
+    
+    # Elbow
+    - name: "r_elbow"
+      type: "revolute"
+      min_position: 0.0
+      max_position: 3.14       # 180 degrees (limited by servo)
+      max_velocity: 1.0
+      max_effort: 8.0
+      servo: "HK15298B"
+    
+    # Wrist (rotation)
+    - name: "r_wrist"
+      type: "revolute"
+      min_position: -1.57
+      max_position: 1.57
+      max_velocity: 1.5
+      max_effort: 3.0
+      servo: "HK15298B"
+    
+    # Hand - Individual Fingers (tendon-driven by servos)
+    - name: "r_thumb"
+      type: "revolute"
+      min_position: 0.0        # Open
+      max_position: 3.14       # Closed (180 degrees)
+      max_velocity: 1.0
+      max_effort: 5.0
+      servo: "HK15298B"
+      description: "Right thumb"
+    
+    - name: "r_index"
+      type: "revolute"
+      min_position: 0.0
+      max_position: 3.14
+      max_velocity: 1.0
+      max_effort: 5.0
+      servo: "HK15298B"
+      description: "Right index finger"
+    
+    - name: "r_middle"
+      type: "revolute"
+      min_position: 0.0
+      max_position: 3.14
+      max_velocity: 1.0
+      max_effort: 5.0
+      servo: "HK15298B"
+      description: "Right middle finger"
+    
+    - name: "r_ring"
+      type: "revolute"
+      min_position: 0.0
+      max_position: 3.14
+      max_velocity: 1.0
+      max_effort: 5.0
+      servo: "HK15298B"
+      description: "Right ring finger"
+    
+    - name: "r_pinky"
+      type: "revolute"
+      min_position: 0.0
+      max_position: 3.14
+      max_velocity: 1.0
+      max_effort: 5.0
+      servo: "HK15298B"
+      description: "Right pinky finger"
+    
+    # ============================================
+    # LEFT ARM SECTION (9 DOF - Mirror of right)
+    # ============================================
+    # Shoulder
+    - name: "l_shoulder_pan"
+      type: "revolute"
+      min_position: -1.57
+      max_position: 1.57
+      max_velocity: 0.8
+      max_effort: 10.0
+      servo: "MG996R"
+    
+    - name: "l_shoulder_lift"
+      type: "revolute"
+      min_position: -0.785
+      max_position: 2.356
+      max_velocity: 0.8
+      max_effort: 10.0
+      servo: "MG996R"
+    
+    # Elbow
+    - name: "l_elbow"
+      type: "revolute"
+      min_position: 0.0
+      max_position: 3.14
+      max_velocity: 1.0
+      max_effort: 8.0
+      servo: "HK15298B"
+    
+    # Wrist (rotation)
+    - name: "l_wrist"
+      type: "revolute"
+      min_position: -1.57
+      max_position: 1.57
+      max_velocity: 1.5
+      max_effort: 3.0
+      servo: "HK15298B"
+    
+    # Hand - Individual Fingers
+    - name: "l_thumb"
+      type: "revolute"
+      min_position: 0.0
+      max_position: 3.14
+      max_velocity: 1.0
+      max_effort: 5.0
+      servo: "HK15298B"
+    
+    - name: "l_index"
+      type: "revolute"
+      min_position: 0.0
+      max_position: 3.14
+      max_velocity: 1.0
+      max_effort: 5.0
+      servo: "HK15298B"
+    
+    - name: "l_middle"
+      type: "revolute"
+      min_position: 0.0
+      max_position: 3.14
+      max_velocity: 1.0
+      max_effort: 5.0
+      servo: "HK15298B"
+    
+    - name: "l_ring"
+      type: "revolute"
+      min_position: 0.0
+      max_position: 3.14
+      max_velocity: 1.0
+      max_effort: 5.0
+      servo: "HK15298B"
+    
+    - name: "l_pinky"
+      type: "revolute"
+      min_position: 0.0
+      max_position: 3.14
+      max_velocity: 1.0
+      max_effort: 5.0
+      servo: "HK15298B"
+
+# ============================================
+# KINEMATICS & LINK DIMENSIONS
+# ============================================
+kinematics:
+  model: "inmoov2_full_humanoid"
+  
+  link_dimensions:
+    # Head
+    head_length: 0.15  # meters
+    
+    # Right Arm
+    r_shoulder_to_elbow: 0.20
+    r_elbow_to_wrist: 0.15
+    r_wrist_to_hand: 0.08
+    r_hand_length: 0.10
+    r_finger_length: 0.10
+    
+    # Left Arm (symmetric)
+    l_shoulder_to_elbow: 0.20
+    l_elbow_to_wrist: 0.15
+    l_wrist_to_hand: 0.08
+    l_hand_length: 0.10
+    l_finger_length: 0.10
+
+# Safety constraints
+safety:
+  emergency_stop:
+    enabled: true
+    button_type: "momentary"
+  
+  joint_velocity_limit: 0.5
+  joint_position_error_threshold: 0.1
+  watchdog_timeout: 1.0
+
+# Sensor configuration
+sensors:
+  imu:
+    enabled: true
+    rate: 100
+
+# ROS 2 Configuration
+ros2:
+  node_name: "axel_control"
+  domain_id: 0
+  
+  topics:
+    joint_state: "/joint_states"
+    joint_command: "/joint_commands"
+    imu_data: "/imu/data"
+
+# GUI Configuration
+gui:
+  update_rate: 30
+  window_width: 1400
+  window_height: 900
+  
+  tabs:
+    - name: "Head"
+      joints: ["head_pan", "head_tilt"]
+    
+    - name: "Right Arm"
+      joints: ["r_shoulder_pan", "r_shoulder_lift", "r_elbow", "r_wrist"]
+    
+    - name: "Right Hand"
+      joints: ["r_thumb", "r_index", "r_middle", "r_ring", "r_pinky"]
+    
+    - name: "Left Arm"
+      joints: ["l_shoulder_pan", "l_shoulder_lift", "l_elbow", "l_wrist"]
+    
+    - name: "Left Hand"
+      joints: ["l_thumb", "l_index", "l_middle", "l_ring", "l_pinky"]
+    
+    - name: "Visualization"
+      type: "3d_view"
+    
+    - name: "Monitoring"
+      type: "monitoring"
+
+# Logging configuration
+logging:
+  level: "INFO"
+  file: "logs/axel_application.log"
+  max_size: 10485760
+  backup_count: 5

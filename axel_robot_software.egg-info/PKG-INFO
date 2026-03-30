@@ -1,0 +1,26 @@
+Metadata-Version: 2.4
+Name: axel-robot-software
+Version: 0.1.0
+Summary: Desktop PC application for AXEL humanoid robot supervision
+Home-page: https://github.com/yourusername/axel-robot-software
+Author: Your Name
+Author-email: your.email@institution.com
+Requires-Python: >=3.10
+Requires-Dist: PyQt6>=6.0.0
+Requires-Dist: numpy>=1.20.0
+Requires-Dist: PyYAML>=5.4.0
+Requires-Dist: pydantic>=2.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Requires-Dist: black>=22.0.0; extra == "dev"
+Requires-Dist: pylint>=2.15.0; extra == "dev"
+Provides-Extra: ros
+Requires-Dist: rclpy>=0.13.0; extra == "ros"
+Dynamic: author
+Dynamic: author-email
+Dynamic: home-page
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
